@@ -28,26 +28,34 @@ FlexiFit Gym wants a database to manage its members, trainers, and fitness progr
 
 ### Entities and Attributes
 
-| Entity | Attributes (PK, FK) | Notes |
-|--------|--------------------|-------|
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
+| Entity     |        Attributes (PK, FK)              | Notes             |
+|------------|-----------------------------------------|-------------------|
+| Member     | member_id, name, membership_type,       | Details of        |
+|            | start_date, contact_info                | members           |
+| Program    | program_id, program_name, description,  | Details of        |
+|            | duration                                | programs          |
+| Trainer    | trainer_id, name, specialization,       | Details of        |
+|            | contact_info                            | trainers          |
+| Session    | session_id, date, time, member_id       | Details of        |
+|            | trainer_id                              | sessions          |
+| Attendance | attendance_id, date, status,            | Details of        |
+|            | session_id                              | attendance        |
+| Payment    | payment_id, amount, payment_date,       | Details of        |
+|            | payment_type, member_id                 | transactions      |
 
 ### Relationships and Constraints
 
-| Relationship | Cardinality | Participation | Notes |
-|--------------|------------|---------------|-------|
-|              |            |               |       |
-|              |            |               |       |
-|              |            |               |       |
+|     Relationship    | Cardinality |    Participation     |                Notes                    |
+|---------------------|-------------|----------------------|-----------------------------------------|
+| member_program      | M:N         | Member, Program      | Details of membership                   |
+| trainer_program     | M:N         | Trainer, Program     | Details of trainer plan                 | 
+| personal_session    | 1:1         | Member, Trainer      | Details of member and personal trainer  |
+| fees                | 1:M         | Member, Payment      | Details of fees transcation             |
+| tracking            | 1:1         | Session, Attendance  | Details of member and personal trainer  |
 
 ### Assumptions
-- 
-- 
-- 
+- There are members and trainers, members have different membership types (e.g., daily, monthly).
+- The system tracks classes and equipment, and there's a focus on managing attendance and payments. 
 
 ---
 
