@@ -128,114 +128,175 @@ create table Bonuses (
 
 <img width="578" height="167" alt="image" src="https://github.com/user-attachments/assets/79d04a53-126a-4e47-81a8-8a0a139f8590" />
 
-
 **Question 2**
 ---
--- Paste Question 2 here
+Write an SQL query to add two new columns, first_name and last_name, to the table employee. Both columns should have a data type of varchar(50).
 
 ```sql
--- Paste your SQL code below for Question 2
+alter table employee
+add column first_name varchar(50);
+
+alter table employee
+add column last_name varchar(50); 
 ```
 
 **Output:**
 
-![Output2](output.png)
+<img width="559" height="184" alt="image" src="https://github.com/user-attachments/assets/7ac79a29-3089-4b55-85ec-038520230d7c" />
 
 **Question 3**
 ---
--- Paste Question 3 here
+Create a table named Orders with the following columns:
+
+OrderID as INTEGER
+OrderDate as TEXT
+CustomerID as INTEGER
 
 ```sql
--- Paste your SQL code below for Question 3
+create table Orders (
+    OrderID INTEGER,
+    OrderDate TEXT,
+    CustomerID INTEGER
+);
 ```
 
 **Output:**
 
-![Output3](output.png)
+<img width="517" height="238" alt="image" src="https://github.com/user-attachments/assets/5cb34e03-8ff4-4ed9-9eed-a3a9cd2d2a80" />
 
 **Question 4**
 ---
--- Paste Question 4 here
+Write a SQL query to add birth_date attribute as timestamp (datatype) in the table customer 
+
+Sample table: customer
+
+ customer_id |   cust_name    |    city    | grade | salesman_id 
+-------------+----------------+------------+-------+-------------
+        3002 | Nick Rimando   | New York   |   100 |        5001
+        3007 | Brad Davis     | New York   |   200 |        5001
+        3005 | Graham Zusi    | California |   200 |        5002
 
 ```sql
--- Paste your SQL code below for Question 4
+alter table customer add column birth_date timestamp;
 ```
 
 **Output:**
 
-![Output4](output.png)
+<img width="735" height="223" alt="image" src="https://github.com/user-attachments/assets/55dfa8a9-bc6d-47db-9f51-1b0248679425" />
 
 **Question 5**
 ---
--- Paste Question 5 here
+Create a table named Invoices with the following constraints:
+
+InvoiceID as INTEGER should be the primary key.
+InvoiceDate as DATE.
+DueDate as DATE should be greater than the InvoiceDate.
+Amount as REAL should be greater than 0.
 
 ```sql
--- Paste your SQL code below for Question 5
+create table Invoices (
+    InvoiceID INTEGER primary key,
+    InvoiceDate DATE,
+    DueDate DATE check (DueDate >InvoiceDate),
+    Amount REAL check (Amount > 0) 
+);
 ```
 
 **Output:**
 
-![Output5](output.png)
+<img width="427" height="160" alt="image" src="https://github.com/user-attachments/assets/41466cdb-b780-4f42-90c6-47e48b2bd48f" />
 
 **Question 6**
 ---
--- Paste Question 6 here
+In the Products table, insert a record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
+
+ProductID   Name              Category    Price       Stock
+----------  ---------------   ----------  ----------  ----------
+106         Fitness Tracker   Wearables
+107         Laptop            Electronics  999.99      50
+108         Wireless Earbuds  Accessories              100
 
 ```sql
--- Paste your SQL code below for Question 6
+insert into Products values (106, 'Fitness Tracker', 'Wearables', null, null);
+
+insert into Products values (107, 'Laptop', 'Electronic', 999.99, 50); 
+
+insert into Products values (108, 'Wireless Earbud', 'Accessorie', null, 100); 
 ```
 
 **Output:**
 
-![Output6](output.png)
+<img width="513" height="167" alt="image" src="https://github.com/user-attachments/assets/760bc2d6-2778-4061-ab7f-b15dfbb34d5e" />
 
 **Question 7**
 ---
--- Paste Question 7 here
+Insert a new product with ProductID 101, Name Laptop, Category Electronics, Price 1500, and Stock 50 into the Products table.
 
 ```sql
--- Paste your SQL code below for Question 7
+insert into Products values (101, 'Laptop', 'Electronics', 1500, 50);
 ```
 
 **Output:**
 
-![Output7](output.png)
+<img width="485" height="130" alt="image" src="https://github.com/user-attachments/assets/7c8f5dae-d48a-4328-b619-61a3b34ae783" />
 
 **Question 8**
 ---
--- Paste Question 8 here
+Create a table named Shipments with the following constraints:
+ShipmentID as INTEGER should be the primary key.
+ShipmentDate as DATE.
+SupplierID as INTEGER should be a foreign key referencing Suppliers(SupplierID).
+OrderID as INTEGER should be a foreign key referencing Orders(OrderID).
 
 ```sql
--- Paste your SQL code below for Question 8
+create table Shipments (
+    ShipmentID INTEGER primary key,
+    ShipmentDate DATE,
+    SupplierID INTEGER,
+    OrderID INTEGER,
+    constraint fk_Suppliers foreign key (SupplierID) references Suppliers(SupplierID),
+    constraint fk_Orders foreign key (OrderID) references Orders(OrderID)
+);
 ```
 
 **Output:**
 
-![Output8](output.png)
+<img width="320" height="124" alt="image" src="https://github.com/user-attachments/assets/94d28fda-8b03-42d7-8755-c742224ff91a" />
 
 **Question 9**
 ---
--- Paste Question 9 here
+Insert all employees from Former_employees into Employee
+
+Table attributes are EmployeeID, Name, Department, Salary
 
 ```sql
--- Paste your SQL code below for Question 9
+insert into Employee select * from Former_employees;
 ```
 
 **Output:**
 
-![Output9](output.png)
+<img width="390" height="166" alt="image" src="https://github.com/user-attachments/assets/e289b393-7088-47fb-a12d-eac4fea1879a" />
 
 **Question 10**
 ---
--- Paste Question 10 here
+Create a table named Orders with the following constraints:
+OrderID as INTEGER should be the primary key.
+OrderDate as DATE should be not NULL.
+CustomerID as INTEGER should be a foreign key referencing Customers(CustomerID).
 
 ```sql
--- Paste your SQL code below for Question 10
+create table Orders (
+    OrderID integer primary key,
+    OrderDate date not null,
+    CustomerID integer,
+    constraint fk_Customers
+        foreign key (CustomerID) references Customers(CustomerID)
+);
 ```
 
 **Output:**
 
-![Output10](output.png)
+<img width="316" height="162" alt="image" src="https://github.com/user-attachments/assets/7c95ed6f-0a03-4337-946e-ed70137da7fd" />
 
 
 ## RESULT
