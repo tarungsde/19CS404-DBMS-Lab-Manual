@@ -105,15 +105,29 @@ CREATE TABLE Table_Name (
 
 **Question 1**
 --
--- Paste Question 1 here
+Create a table named Bonuses with the following constraints:
+BonusID as INTEGER should be the primary key.
+EmployeeID as INTEGER should be a foreign key referencing Employees(EmployeeID).
+BonusAmount as REAL should be greater than 0.
+BonusDate as DATE.
+Reason as TEXT should not be NULL.
 
 ```sql
--- Paste your SQL code below for Question 1
+create table Bonuses (
+    BonusID integer primary key,
+    EmployeeID integer,
+    BonusAmount real check (BonusAmount > 0),
+    BonusDate date,
+    Reason text not null,
+    constraint fk_Employees
+        foreign key (EmployeeID) references Employees(EmployeeID)
+);
 ```
 
 **Output:**
 
-![Output1](output.png)
+<img width="578" height="167" alt="image" src="https://github.com/user-attachments/assets/79d04a53-126a-4e47-81a8-8a0a139f8590" />
+
 
 **Question 2**
 ---
