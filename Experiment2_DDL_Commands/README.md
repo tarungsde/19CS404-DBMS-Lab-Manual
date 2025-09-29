@@ -170,12 +170,6 @@ Write a SQL query to add birth_date attribute as timestamp (datatype) in the tab
 
 Sample table: customer
 
- customer_id |   cust_name    |    city    | grade | salesman_id 
--------------+----------------+------------+-------+-------------
-        3002 | Nick Rimando   | New York   |   100 |        5001
-        3007 | Brad Davis     | New York   |   200 |        5001
-        3005 | Graham Zusi    | California |   200 |        5002
-
 ```sql
 alter table customer add column birth_date timestamp;
 ```
