@@ -47,15 +47,21 @@ SELECT column1, column2 FROM table_name WHERE condition;
 ```
 **Question 1**
 --
--- Paste Question 1 here
+Write a SQL statement to Increase the salary by 500 and email as 'updated' for employees with job ID 'SA_REP' and commission percentage greater than 0.15
 
 ```sql
--- Paste your SQL code below for Question 1
+update Employees
+set salary = salary + 500
+where job_id = 'SA_REP' and commission_pct > 0.15;
+
+update Employees
+set email = 'updated'  
+where job_id = 'SA_REP' and commission_pct > 0.15; 
 ```
 
 **Output:**
 
-![Output1](output.png)
+<img width="481" height="360" alt="image" src="https://github.com/user-attachments/assets/ec701132-bc3d-4196-b743-d1df8e088f8c" />
 
 **Question 2**
 ---
