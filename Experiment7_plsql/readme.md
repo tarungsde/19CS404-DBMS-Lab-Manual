@@ -34,8 +34,27 @@ END;
 - Use an `IF` statement to compare the values.
 - Display the greater number using `DBMS_OUTPUT.PUT_LINE`.
 
+```pl/sql
+SET SERVEROUTPUT ON;
+
+DECLARE
+    num1 NUMBER := 80;
+    num2 NUMBER := 65;
+BEGIN
+    IF num1 > num2 THEN
+        DBMS_OUTPUT.PUT_LINE('Greater number is: ' || num1);
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Greater number is: ' || num2);
+    END IF;
+END;
+```
+
 **Expected Output:**  
 Greater number is: 80
+
+**Output:**
+
+<img width="617" height="287" alt="image" src="https://github.com/user-attachments/assets/1dc58da1-1359-44e9-a673-0ec19d834bde" />
 
 ---
 
@@ -92,3 +111,4 @@ Largest of three number is 15
 
 ## RESULT
 Thus, the PL/SQL programs using variables, conditionals, and loops were executed successfully.
+
