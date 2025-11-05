@@ -67,7 +67,7 @@ Greater number is: 80
 - Use a `WHILE` loop to iterate from 1 to `n`, adding each number to the sum.
 - Display the result using `DBMS_OUTPUT.PUT_LINE`.
 
-'''sql
+```sql
 SET SERVEROUTPUT ON;
 
 DECLARE
@@ -83,7 +83,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Sum of first ' || n || ' natural numbers is: ' || sum_n);
 END;
 /
-'''
+```
 
 **Expected Output:**  
 Sum of first 10 natural numbers is: 55
@@ -101,7 +101,7 @@ Sum of first 10 natural numbers is: 55
 - Use a loop to generate the next terms using the formula `c = a + b`.
 - Print each term in the series.
 
-'''sql
+```sql
 SET SERVEROUTPUT ON;
 
 DECLARE
@@ -123,7 +123,7 @@ BEGIN
     DBMS_OUTPUT.NEW_LINE;
 END;
 /
-'''
+```
 
 **Expected Output:**  
 n = 7  
@@ -142,7 +142,7 @@ Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8
 - Use a loop to extract each digit using modulo and reverse the number.
 - Display the reversed number.
 
-'''sql
+```sql
 SET SERVEROUTPUT ON;
 
 DECLARE
@@ -163,7 +163,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Reversed number is ' || reversed_num);
 END;
 /
-'''
+```
 
 **Expected Output:**  
 n = 1535  
@@ -182,7 +182,7 @@ Reversed number is 5351
 - Use nested `IF-ELSIF-ELSE` conditions to find the largest among the three.
 - Display the largest number.
 
-'''sql
+```sql
 SET SERVEROUTPUT ON;
 
 DECLARE
@@ -203,7 +203,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Largest of three number is ' || largest);
 END;
 /
-'''
+```
 
 **Expected Output:**  
 a = 10, b = 9, c = 15  
@@ -215,5 +215,6 @@ Largest of three number is 15
 
 ## RESULT
 Thus, the PL/SQL programs using variables, conditionals, and loops were executed successfully.
+
 
 
