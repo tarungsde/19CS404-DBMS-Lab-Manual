@@ -60,8 +60,34 @@ Key Differences:
 - Use `DBMS_OUTPUT.PUT_LINE` to display the result.
 - Call the procedure with a number as input.
 
+```sql
+SET SERVEROUTPUT ON;
+
+-- Create procedure to find square of a number
+CREATE OR REPLACE PROCEDURE find_square(p_number IN NUMBER) 
+IS
+    v_result NUMBER;
+BEGIN
+    v_result := p_number * p_number;
+    DBMS_OUTPUT.PUT_LINE('Square of ' || p_number || ' is ' || v_result);
+END find_square;
+/
+
+-- Calling the procedure
+BEGIN
+    find_square(6);
+    find_square(12);
+    find_square(7);
+END;
+/
+```
+
 **Expected Output:**  
 Square of 6 is 36
+
+**Output:**
+
+<img width="275" height="116" alt="image" src="https://github.com/user-attachments/assets/0ebc6497-e0be-47cc-acd3-831c79dcf1e4" />
 
 ---
 
@@ -74,8 +100,49 @@ Square of 6 is 36
 - Return the result using the `RETURN` statement.
 - Call the function using a `SELECT` statement or in an anonymous block.
 
+```sql
+SET SERVEROUTPUT ON;
+
+-- Create function to calculate factorial
+CREATE OR REPLACE FUNCTION get_factorial(p_num IN NUMBER) 
+RETURN NUMBER
+IS
+    v_factorial NUMBER := 1;
+    v_counter NUMBER;
+BEGIN
+    -- Handle edge cases
+    IF p_num < 0 THEN
+        RETURN NULL; -- Factorial not defined for negative numbers
+    ELSIF p_num = 0 OR p_num = 1 THEN
+        RETURN 1;
+    ELSE
+        v_counter := p_num;
+        WHILE v_counter > 1 LOOP
+            v_factorial := v_factorial * v_counter;
+            v_counter := v_counter - 1;
+        END LOOP;
+        RETURN v_factorial;
+    END IF;
+END get_factorial;
+/
+
+-- Calling the function using SELECT
+SELECT get_factorial(5) AS factorial_of_5 FROM DUAL;
+
+-- Calling the function in an anonymous block
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Factorial of 5 is ' || get_factorial(5));
+    DBMS_OUTPUT.PUT_LINE('Factorial of 0 is ' || get_factorial(0));
+    DBMS_OUTPUT.PUT_LINE('Factorial of 7 is ' || get_factorial(7));
+END;
+/
+```
 **Expected Output:**  
 Factorial of 5 is 120
+
+**Output:**
+
+<img width="272" height="109" alt="image" src="https://github.com/user-attachments/assets/4807fb89-92f0-4635-a3f4-90df78ae45b0" />
 
 ---
 
@@ -87,8 +154,41 @@ Factorial of 5 is 120
 - Use the `MOD` function to check if the number is divisible by 2.
 - Display whether it is Even or Odd using `DBMS_OUTPUT.PUT_LINE`.
 
+```sql
+SET SERVEROUTPUT ON;
+
+-- Create procedure to check even or odd
+CREATE OR REPLACE PROCEDURE check_even_odd(p_number IN NUMBER) 
+IS
+BEGIN
+    IF MOD(p_number, 2) = 0 THEN
+        DBMS_OUTPUT.PUT_LINE(p_number || ' is Even');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(p_number || ' is Odd');
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: Invalid input');
+END check_even_odd;
+/
+
+-- Calling the procedure
+BEGIN
+    check_even_odd(12);
+    check_even_odd(15);
+    check_even_odd(0);
+    check_even_odd(-7);
+    check_even_odd(23);
+END;
+/
+```
+
 **Expected Output:**  
 12 is Even
+
+**Output:**
+
+<img width="277" height="141" alt="image" src="https://github.com/user-attachments/assets/b96640dc-ed62-42b2-ab49-4e15cd6453a7" />
 
 ---
 
@@ -101,8 +201,83 @@ Factorial of 5 is 120
 - Return the reversed number.
 - Call the function and display the output.
 
+```sql
+SET SERVEROUTPUT ON;
+
+-- First, drop the function if it exists to avoid conflicts
+BEGIN
+    EXECUTE IMMEDIATE 'DROP FUNCTION reverse_number';
+EXCEPTION
+    WHEN OTHERS THEN
+        NULL; -- Function doesn't exist, continue
+END;
+/
+
+-- Create function to reverse a number
+CREATE OR REPLACE FUNCTION reverse_number(p_num IN NUMBER) 
+RETURN NUMBER
+IS
+    v_original NUMBER := p_num;
+    v_reversed NUMBER := 0;
+    v_digit NUMBER;
+BEGIN
+    -- Handle NULL input
+    IF p_num IS NULL THEN
+        RETURN NULL;
+    END IF;
+    
+    -- Handle negative numbers
+    IF p_num < 0 THEN
+        RETURN -reverse_number(ABS(p_num));
+    END IF;
+    
+    -- Handle single digit numbers
+    IF p_num < 10 THEN
+        RETURN p_num;
+    END IF;
+    
+    -- Reverse the digits
+    WHILE v_original > 0 LOOP
+        v_digit := MOD(v_original, 10);
+        v_reversed := (v_reversed * 10) + v_digit;
+        v_original := TRUNC(v_original / 10);
+    END LOOP;
+    
+    RETURN v_reversed;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error in reverse_number: ' || SQLERRM);
+        RETURN NULL;
+END reverse_number;
+/
+
+-- Verify the function compiled successfully
+SELECT object_name, object_type, status 
+FROM user_objects 
+WHERE object_name = 'REVERSE_NUMBER';
+
+-- Test 1: Calling the function in an anonymous block
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('=== Testing Reverse Number Function ===');
+    DBMS_OUTPUT.PUT_LINE('Reversed number of 1234 is ' || reverse_number(1234));
+    DBMS_OUTPUT.PUT_LINE('Reversed number of 56789 is ' || reverse_number(56789));
+    DBMS_OUTPUT.PUT_LINE('Reversed number of 100 is ' || reverse_number(100));
+    DBMS_OUTPUT.PUT_LINE('Reversed number of -456 is ' || reverse_number(-456));
+    DBMS_OUTPUT.PUT_LINE('Reversed number of 7 is ' || reverse_number(7));
+    DBMS_OUTPUT.PUT_LINE('Reversed number of 0 is ' || reverse_number(0));
+END;
+/
+
+-- Test 2: Using SELECT statement (make sure you're in SQL*Plus or SQL Developer)
+SELECT reverse_number(1234) AS reversed_number FROM DUAL;
+```
+
 **Expected Output:**  
 Reversed number of 1234 is 4321
+
+**Output:**
+
+
 
 ---
 
