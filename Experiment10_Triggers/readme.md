@@ -30,8 +30,59 @@ END;
 - Create two tables: `employees` (for storing data) and `employee_log` (for logging the inserts).
 - Write an **AFTER INSERT** trigger on the `employees` table to log the new data into the `employee_log` table.
 
+```sql
+-- Step 1: Create employees table
+CREATE TABLE employees (
+    emp_id NUMBER PRIMARY KEY,
+    emp_name VARCHAR2(50),
+    salary NUMBER,
+    department VARCHAR2(50)
+);
+
+-- Step 2: Create employee_log table for logging
+CREATE TABLE employee_log (
+    log_id NUMBER PRIMARY KEY,
+    emp_id NUMBER,
+    action VARCHAR2(20),
+    action_date DATE,
+    emp_name VARCHAR2(50),
+    salary NUMBER
+);
+
+-- Create sequence for log_id
+CREATE SEQUENCE log_seq START WITH 1 INCREMENT BY 1;
+
+-- Step 3: Create AFTER INSERT trigger
+CREATE OR REPLACE TRIGGER log_employee_insert
+AFTER INSERT ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_log (log_id, emp_id, action, action_date, emp_name, salary)
+    VALUES (log_seq.NEXTVAL, :NEW.emp_id, 'INSERT', SYSDATE, :NEW.emp_name, :NEW.salary);
+    
+    DBMS_OUTPUT.PUT_LINE('Insert logged for employee: ' || :NEW.emp_name);
+END;
+/
+
+-- Test the trigger
+BEGIN
+    INSERT INTO employees VALUES (101, 'John Doe', 5000, 'IT');
+    INSERT INTO employees VALUES (102, 'Jane Smith', 6000, 'HR');
+    COMMIT;
+END;
+/
+
+-- Verify results
+SELECT * FROM employees;
+SELECT * FROM employee_log;
+```
+
 **Expected Output:**
 - A new entry is added to the `employee_log` table each time a new record is inserted into the `employees` table.
+
+**Output:**
+
+<img width="799" height="229" alt="image" src="https://github.com/user-attachments/assets/1ee68156-28be-4584-8e38-96c91b46359f" />
 
 ---
 
@@ -39,6 +90,10 @@ END;
 **Steps:**
 - Write a **BEFORE DELETE** trigger on the `sensitive_data` table.
 - Use `RAISE_APPLICATION_ERROR` to prevent deletion and issue a custom error message.
+
+```sql
+
+```
 
 **Expected Output:**
 - If an attempt is made to delete a record from `sensitive_data`, an error message is raised, e.g., `ERROR: Deletion not allowed on this table.`
@@ -60,8 +115,59 @@ END;
 - Create an `audit_log` table with a counter column.
 - Write an **AFTER UPDATE** trigger on the `customer_orders` table to increment the counter in the `audit_log` table every time a record is updated.
 
+```sql
+-- Step 1: Create employees table
+CREATE TABLE employees (
+    emp_id NUMBER PRIMARY KEY,
+    emp_name VARCHAR2(50),
+    salary NUMBER,
+    department VARCHAR2(50)
+);
+
+-- Step 2: Create employee_log table for logging
+CREATE TABLE employee_log (
+    log_id NUMBER PRIMARY KEY,
+    emp_id NUMBER,
+    action VARCHAR2(20),
+    action_date DATE,
+    emp_name VARCHAR2(50),
+    salary NUMBER
+);
+
+-- Create sequence for log_id
+CREATE SEQUENCE log_seq START WITH 1 INCREMENT BY 1;
+
+-- Step 3: Create AFTER INSERT trigger
+CREATE OR REPLACE TRIGGER log_employee_insert
+AFTER INSERT ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_log (log_id, emp_id, action, action_date, emp_name, salary)
+    VALUES (log_seq.NEXTVAL, :NEW.emp_id, 'INSERT', SYSDATE, :NEW.emp_name, :NEW.salary);
+    
+    DBMS_OUTPUT.PUT_LINE('Insert logged for employee: ' || :NEW.emp_name);
+END;
+/
+
+-- Test the trigger
+BEGIN
+    INSERT INTO employees VALUES (101, 'John Doe', 5000, 'IT');
+    INSERT INTO employees VALUES (102, 'Jane Smith', 6000, 'HR');
+    COMMIT;
+END;
+/
+
+-- Verify results
+SELECT * FROM employees;
+SELECT * FROM employee_log;
+```
+
 **Expected Output:**
 - The `audit_log` table will maintain a count of how many updates have been made to the `customer_orders` table.
+
+**Output:**
+
+<img width="799" height="229" alt="image" src="https://github.com/user-attachments/assets/46bf59fd-5778-419b-b529-0237fdb8d452" />
 
 ---
 
@@ -75,3 +181,4 @@ END;
 
 ## RESULT
 Thus, the PL/SQL trigger programs were written and executed successfully.
+
