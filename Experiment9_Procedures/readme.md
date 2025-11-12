@@ -277,7 +277,7 @@ Reversed number of 1234 is 4321
 
 **Output:**
 
-
+<img width="124" height="61" alt="image" src="https://github.com/user-attachments/assets/a68ca976-0a94-4dd3-9046-fb4c7a721f63" />
 
 ---
 
@@ -289,6 +289,27 @@ Reversed number of 1234 is 4321
 - Use a loop from 1 to 10 to multiply the input number.
 - Display the multiplication results using `DBMS_OUTPUT.PUT_LINE`.
 
+```sql
+-- Create the procedure
+CREATE OR REPLACE PROCEDURE print_table(p_num IN NUMBER) 
+IS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Multiplication table of ' || p_num || ':');
+    
+    -- Loop from 1 to 10 and display multiplication results
+    FOR i IN 1..10 LOOP
+        DBMS_OUTPUT.PUT_LINE(p_num || ' x ' || i || ' = ' || (p_num * i));
+    END LOOP;
+END print_table;
+/
+
+-- Call the procedure
+BEGIN
+    print_table(5);
+END;
+/
+```
+
 **Expected Output:**  
 Multiplication table of 5:  
 5 x 1 = 5  
@@ -296,6 +317,10 @@ Multiplication table of 5:
 5 x 3 = 15  
 ...  
 5 x 10 = 50
+
+**Output:**
+
+<img width="273" height="215" alt="image" src="https://github.com/user-attachments/assets/c90c0d17-17bd-4a58-a3c2-dae5e92ddf16" />
 
 ## RESULT
 Thus, the PL/SQL programs using procedures and functions were written, compiled, and executed successfully.
